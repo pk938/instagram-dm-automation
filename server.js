@@ -208,5 +208,5 @@ app.get('/', (_req, res) => {
 // ── Start ─────────────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
   console.log(`AutoDM server running on port ${PORT}`);
-  console.log(`Active rules: ${RULES.filter(r => r.active).map(r => r.keyword).join(', ')}`);
+  console.log(`Active rules TESTTINGGGGGGGGGGGG: ${RULES.filter(r => r.active).map(r => r.keyword).join(', ')}`);
 });
