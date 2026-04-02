@@ -142,11 +142,10 @@ app.post('/webhook', verifySignature, async (req, res) => {
 
       const userId    = from.id;
       const username  = from.username || 'unknown';
-      const commentId = id;
       const firstName = username.split('_')[0] || 'there'; // rough first-name guess from username
       const lowerText = text.toLowerCase().trim();
 
-      console.log(`[Comment] @${username}: "${text}" "Comment ID = ${commentId}"`);
+      console.log(`[Comment] @${username}: "${text}" "Comment ID = ${comment_id}"`);
 
       // Skip if this user was already DM'd recently
       if (isOnCooldown(userId)) {
