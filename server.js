@@ -45,7 +45,7 @@ if (!APP_SECRET || !VERIFY_TOKEN || !ACCESS_TOKEN) {
 const RULES = [
   {
     keyword: 'LINK',
-    message: 'Hey {name}! 👋 Here\'s the link you asked for: https://yourlink.com',
+    message: 'Hey {name}! 👋 Here\'s the link you asked for: https://youtube.com',
     active: true
   },
   {
