@@ -145,7 +145,7 @@ app.post('/webhook', verifySignature, async (req, res) => {
       const firstName = username.split('_')[0] || 'there'; // rough first-name guess from username
       const lowerText = text.toLowerCase().trim();
 
-      console.log(`[Comment testing 12345] @${username}: "${text}" Comment ID = "${comment_id}"`);
+      console.log(`[Comment] @${username}: "${text}"`);
 
       // Skip if this user was already DM'd recently
       if (isOnCooldown(userId)) {
@@ -165,7 +165,7 @@ app.post('/webhook', verifySignature, async (req, res) => {
             console.log(`[DM Sent] → @${username} matched keyword "${rule.keyword}"`);
             matched = true;
           } catch (err) {
-            console.error(`[DM Failed] → @${username}: commentID = ${comment_id}`, err.response?.data || err.message);
+            console.error(`[DM Failed] → @${username}:`, err.response?.data || err.message);
           }
           break; // Only one DM per comment
         }
@@ -189,7 +189,9 @@ async function sendDM(recipientId, messageText) {
   }, {
     params: { access_token: ACCESS_TOKEN }
   });
+  console.log("Can you see this?")
   return response.data;
+  
 }
 
 // ── Health check ──────────────────────────────────────────────────────────────
