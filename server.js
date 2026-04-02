@@ -165,6 +165,7 @@ app.post('/webhook', verifySignature, async (req, res) => {
             console.log(`[DM Sent] → @${username} matched keyword "${rule.keyword}"`);
             matched = true;
           } catch (err) {
+            console.error('comment_id')
             console.error(`[DM Failed] → @${username}:`, err.response?.data || err.message);
           }
           break; // Only one DM per comment
