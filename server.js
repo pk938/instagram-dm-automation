@@ -187,8 +187,12 @@ async function sendDM(commentId, messageText) {
   const response = await axios.post(
     url,
     {
-      message: messageText,
-      access_token: ACCESS_TOKEN
+      message:   { text: messageText },  // <-- key change: comment_id not user id
+      access_token:   { text: ACCESS_TOKEN }
+      // no messaging_type needed for private replies
+    },
+    {
+      headers: { Authorization: `Bearer ${ACCESS_TOKEN}` }
     }
   );
   return response.data;
