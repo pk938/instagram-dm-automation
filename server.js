@@ -184,6 +184,7 @@ app.post('/webhook', verifySignature, async (req, res) => {
 // Uses the comment_id (not user_id) as the recipient.
 // Requires: instagram_business_manage_comments permission only.
 async function sendDM(commentId, messageText) {
+  console.log('Webhook change.value:', JSON.stringify(change.value));
   console.log('Sending private reply to comment_id:', commentId);
   console.log('Message:', messageText);
   const url = `https://graph.instagram.com/v21.0/${PAGE_ID}/messages`; 
