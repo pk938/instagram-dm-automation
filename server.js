@@ -138,7 +138,7 @@ app.post('/webhook', verifySignature, async (req, res) => {
       // Only handle comment events (not messages, reactions, etc.)
       if (change.field !== 'comments') continue;
 
-      const { from, text, comment_id } = change.value || {};
+      const { from, text, id: comment_id } = change.value || {};
       if (!from || !text) continue;
 
       console.log('Webhook change.value:', JSON.stringify(change.value));
