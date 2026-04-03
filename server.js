@@ -183,7 +183,7 @@ app.post('/webhook', verifySignature, async (req, res) => {
 // Uses the comment_id (not user_id) as the recipient.
 // Requires: instagram_business_manage_comments permission only.
 async function sendDM(commentId, messageText) {
-  const url = `https://graph.instagram.com/v21.0/me/messages`;
+  const url = `https://graph.facebook.com/v21.0/${commentId}/private_replies`;
   const response = await axios.post(
     url,
     {
