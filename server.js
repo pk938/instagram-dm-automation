@@ -30,6 +30,7 @@ app.use(express.json({
 const APP_SECRET   = process.env.IG_APP_SECRET;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+const PAGE_ID = process.env.PAGE_ID;
 const PORT         = process.env.PORT || 3000;
 
 if (!APP_SECRET || !VERIFY_TOKEN || !ACCESS_TOKEN) {
@@ -183,7 +184,7 @@ app.post('/webhook', verifySignature, async (req, res) => {
 // Uses the comment_id (not user_id) as the recipient.
 // Requires: instagram_business_manage_comments permission only.
 async function sendDM(commentId, messageText) {
-  const url = `https://graph.facebook.com/v21.0/me/messages`;
+  const url = `https://graph.facebook.com/v21.0/${PAGE_ID}/messages`;
   const response = await axios.post(
     url,
     {
@@ -192,7 +193,8 @@ async function sendDM(commentId, messageText) {
       // no messaging_type needed for private replies
     },
     {
-      headers: { Authorization: `Bearer ${ACCESS_TOKEN}` }
+      headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
+      'Content-Type': 'application/json'
     }
   );
   return response.data;
