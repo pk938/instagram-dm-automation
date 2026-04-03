@@ -183,17 +183,14 @@ app.post('/webhook', verifySignature, async (req, res) => {
 // Uses the comment_id (not user_id) as the recipient.
 // Requires: instagram_business_manage_comments permission only.
 async function sendDM(commentId, messageText) {
-  const url = `https://graph.facebook.com/v21.0/${commentId}/private_replies`;
+  const url = `https://graph.facebook.com/v21.0/me/messages`;
   const response = await axios.post(
     url,
     {
-      message:   { text: messageText },  // <-- key change: comment_id not user id
-      access_token:   { text: ACCESS_TOKEN }
+      recipient:   { comment_id: commentId },  // <-- key change: comment_id not user id
+      message: { text : messageText }
       // no messaging_type needed for private replies
     },
-    {
-      headers: { Authorization: `Bearer ${ACCESS_TOKEN}` }
-    }
   );
   return response.data;
 }
