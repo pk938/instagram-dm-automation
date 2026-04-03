@@ -191,6 +191,9 @@ async function sendDM(commentId, messageText) {
       message: { text : messageText }
       // no messaging_type needed for private replies
     },
+    {
+      headers: { Authorization: `Bearer ${ACCESS_TOKEN}` }
+    }
   );
   return response.data;
 }
