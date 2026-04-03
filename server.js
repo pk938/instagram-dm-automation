@@ -141,12 +141,12 @@ app.post('/webhook', verifySignature, async (req, res) => {
       const { from, text, comment_id } = change.value || {};
       if (!from || !text) continue;
 
+      console.log('Webhook change.value:', JSON.stringify(change.value));
+
       const userId    = from.id;
       const username  = from.username || 'unknown';
       const firstName = username.split('_')[0] || 'there'; // rough first-name guess from username
       const lowerText = text.toLowerCase().trim();
-
-      console.log(`[Comment] @${username}: "${text}"`);
 
       // Skip if this user was already DM'd recently
       if (isOnCooldown(userId)) {
@@ -184,7 +184,6 @@ app.post('/webhook', verifySignature, async (req, res) => {
 // Uses the comment_id (not user_id) as the recipient.
 // Requires: instagram_business_manage_comments permission only.
 async function sendDM(commentId, messageText) {
-  console.log('Webhook change.value:', JSON.stringify(change.value));
   console.log('Sending private reply to comment_id:', commentId);
   console.log('Message:', messageText);
   const url = `https://graph.instagram.com/v21.0/${PAGE_ID}/messages`; 
@@ -217,4 +216,6 @@ app.get('/', (_req, res) => {
 app.listen(PORT, () => {
   console.log(`AutoDM server running on port ${PORT}`);
   console.log(`Active rules TESTTINGGGGGGGGGGGG: ${RULES.filter(r => r.active).map(r => r.keyword).join(', ')}`);
+
 });
+
