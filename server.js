@@ -186,7 +186,7 @@ app.post('/webhook', verifySignature, async (req, res) => {
 async function sendDM(commentId, messageText) {
   console.log('Sending private reply to comment_id:', commentId);
   console.log('Message:', messageText);
-  const url = `https://graph.instagram.com/v21.0/${PAGE_ID}/messages`; 
+  const url = `https://graph.facebook.com/v21.0/${PAGE_ID}/messages`; 
   const response = await axios.post(
     url,
     {
