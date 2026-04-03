@@ -160,7 +160,7 @@ app.post('/webhook', verifySignature, async (req, res) => {
         if (lowerText.includes(rule.keyword.toLowerCase())) {
           const message = rule.message.replace(/{name}/gi, firstName);
           try {
-            await sendDM(userId, message);
+            await sendDM(comment_id, message);
             setCooldown(userId);
             console.log(`[DM Sent] → @${username} matched keyword "${rule.keyword}"`);
             matched = true;
@@ -179,20 +179,23 @@ app.post('/webhook', verifySignature, async (req, res) => {
   }
 });
 
-// ── Send a DM via Instagram Graph API ─────────────────────────────────────────
-// Uses graph.instagram.com (Instagram Login API — no Facebook Page needed)
-async function sendDM(recipientId, messageText) {
-  const url = 'https://graph.instagram.com/v21.0/me/messages';
-  const response = await axios.post(url, {
-    recipient:      { id: recipientId },
-    message:        { text: messageText },
-    messaging_type: 'RESPONSE'
-  }, {
-    params: { access_token: ACCESS_TOKEN }
-  });
-  console.log("Can you see this?")
+// ── Send a Private Reply via Instagram Graph API ──────────────────────────────
+// Uses the comment_id (not user_id) as the recipient.
+// Requires: instagram_business_manage_comments permission only.
+async function sendDM(commentId, messageText) {
+  const url = `https://graph.instagram.com/v21.0/me/messages`;
+  const response = await axios.post(
+    url,
+    {
+      recipient: { comment_id: commentId },  // <-- key change: comment_id not user id
+      message:   { text: messageText }
+      // no messaging_type needed for private replies
+    },
+    {
+      headers: { Authorization: `Bearer ${ACCESS_TOKEN}` }
+    }
+  );
   return response.data;
-  
 }
 
 // ── Health check ──────────────────────────────────────────────────────────────
