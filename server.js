@@ -45,19 +45,24 @@ if (!APP_SECRET || !VERIFY_TOKEN || !ACCESS_TOKEN) {
 // Rules are checked top to bottom — first match wins.
 const RULES = [
   {
+    keyword: 'REBATE',
+    message: 'Hi, here is the HST Rebate guide you asked for, let me know if you have any questions : https://pkmortgage.ca/hst ',
+    active: true
+  },
+  {
     keyword: 'LINK',
     message: 'Hey {name}! 👋 Here\'s the link you asked for: https://youtube.com',
-    active: true
+    active: false
   },
   {
     keyword: 'PRICE',
     message: 'Hi {name}! Our pricing starts from $XX — DM me for the full breakdown 💬',
-    active: true
+    active: false
   },
   {
     keyword: 'INFO',
     message: 'Hey {name}! Thanks for your interest. Here\'s everything you need to know: [your info]',
-    active: true
+    active: false
   },
 ];
 
