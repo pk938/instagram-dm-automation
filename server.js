@@ -46,7 +46,7 @@ if (!APP_SECRET || !VERIFY_TOKEN || !ACCESS_TOKEN) {
 const RULES = [
   {
     keyword: 'REBATE',
-    message: 'Hi, here is the HST Rebate guide you asked for, let me know if you have any questions : https://pkmortgage.ca/hst ',
+    message: 'Hi, here is the HST Rebate Guide you asked for, let me know if you have any questions : https://pkmortgage.ca/hst ',
     active: true
   },
   {
